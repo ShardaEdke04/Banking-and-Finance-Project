@@ -1,42 +1,50 @@
-pipeline{
+pipeline {
     agent any
-    stages{
-        stage('checkout the code from github'){
-            steps{
-                 git url: 'https://github.com/ShardaEdke04/Banking-and-Finance-Project/'
-                 echo 'github url checkout'
+
+    stages {
+        stage('Checkout Code') {
+            steps {
+                git url: 'https://github.com/ShardaEdke04/Banking-and-Finance-Project/'
+                echo 'Checked out code from GitHub'
             }
         }
-        stage('codecompile with Sharda'){
-            steps{
-                echo 'starting compiling'
+
+        stage('Compile Code') {
+            steps {
+                echo 'Starting compilation...'
                 sh 'mvn compile'
             }
         }
-        stage('codetesting with Sharda'){
-            steps{
+
+        stage('Run Tests') {
+            steps {
                 sh 'mvn test'
             }
         }
-        stage('qa with Sharda'){
-            steps{
+
+        stage('QA - Code Quality') {
+            steps {
                 sh 'mvn checkstyle:checkstyle'
             }
         }
-        stage('package with Sharda'){
-            steps{
+
+        stage('Package Application') {
+            steps {
                 sh 'mvn package'
             }
         }
-        stage('run dockerfile'){
-          steps{
-               sh 'docker build -t myimg .'
-           }
-         }
-        stage('port expose'){
-            steps{
+
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker build -t myimg .'
+            }
+        }
+
+        stage('Run Docker Container') {
+            steps {
                 sh 'docker run -dt -p 8091:8091 --name c000 myimg'
             }
-        }   
+        }
     }
 }
+
