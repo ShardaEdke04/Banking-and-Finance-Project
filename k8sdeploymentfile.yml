@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: insurance
-          image: vikuldocker/demoinsurancevikul:1.0
+          image: vish042001/finance-image:latest
           ports:
             - containerPort: 8081
           env:
