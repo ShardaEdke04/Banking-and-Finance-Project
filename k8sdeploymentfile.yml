@@ -2,19 +2,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: insureme
+  name: finance
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: insureme
+      app: finance
   template:
     metadata:
       labels:
-        app: insureme
+        app: finance
     spec:
       containers:
-        - name: insurance
+        - name: finance
           image: vish042001/finance-image:latest
           ports:
             - containerPort: 8081
@@ -25,11 +25,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: insureme
+  name: finance
 spec:
   type: NodePort
   selector:
-    app: insureme
+    app: finance
   ports:
     - port: 8081
       targetPort: 8081
